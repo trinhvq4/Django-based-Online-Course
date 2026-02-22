@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.name }} - Course Details</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .lesson-content {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'onlinecourse:index' %}">Django Online Course</a>
+            <span class="navbar-text text-white">
+                Course Details
+            </span>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        
+        <div class="jumbotron">
+            <h1 class="display-4">{{ course.name }}</h1>
+            <p class="lead">Review the lessons below to prepare for your final exam.</p>
+        </div>
+
+        <div class="card mb-5">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Lessons</h3>
+            </div>
+            
+            <ul class="list-group list-group-flush">
+                {% if course.lesson_set.all %}
+                    {% for lesson in course.lesson_set.all %}
+                        <li class="list-group-item">
+                            <h5 class="mb-1">{{ lesson.title }}</h5>
+                            <p class="mb-1 lesson-content">{{ lesson.content }}</p>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item text-muted">
+                        No lessons have been added to this course yet.
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        
+        </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
